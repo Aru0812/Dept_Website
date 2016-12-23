@@ -1,0 +1,104 @@
+
+<!doctype html>
+<html>
+<style>.error {color: #FF0000;}</style>
+<head>
+  <link rel="stylesheet" href="bootstrap.min.css" />
+</head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+<script>
+$(document).ready(function(){
+    $("input").focus(function(){
+        $(this).css("background-color", "#cccccc");
+    });
+    $("input").blur(function(){
+        $(this).css("background-color", "#ffffff");
+    });
+});
+</script>
+<?php
+// define variables and set to empty values
+$emailErr= "";
+$email"";
+
+ if ($_SERVER["REQUEST_METHOD"] == "POST") 
+ { 
+     if (empty($_POST["email"]))
+	 {
+    $emailErr = "Email is required";
+     } 
+	 else
+	 {
+    $email = test_input($_POST["email"]);
+    // check if e-mail address is well-formed
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL))
+	{
+      $emailErr = "Invalid email format";
+    }
+    }
+   
+function test_input($data)
+ {
+  $data = trim($data);
+  $data = stripslashes($data);
+  $data = htmlspecialchars($data);
+  return $data;
+}
+}
+?>
+
+
+<body> 
+<script src="my_script.js" type="text/javascript"></script>
+
+
+<div class="container" >
+<div class="row">
+<div class="col-xs-12">
+<div class="page-header">
+<h1>Post your doubts without any hesitation<br>
+<small>let our community answer</small>
+</h1>
+</div>
+</div>
+</div>
+
+<div class="row">
+<div class="col-md-7">
+
+<div class="panel panel-default">
+<div class="panel-body">
+<form id="myform" action="userinfo.php" method="post">
+  <div class="form-group">
+    Email
+    <input type="text" class="form-control" id="email" name="email">
+  </div>
+  <div class="form-group">
+    Subject
+    <input type="text" class="form-control" id="subject" name="subject">
+  </div>
+
+Enter your query here
+<textarea class="form-control"  rows="10" name="comment"></textarea>
+<br>
+<div class="form-group">
+<button type="sub" class="btn btn-info">Sign in</button>
+</div><!-- End submit formgroup -->
+</form>
+<span id="result"></span>
+
+</div>
+</div> <!-- End Panel -->	
+</div> <!-- End form column -->
+
+<div class="col-md-5">
+<div class="jumbotron">
+<h2>How it works!</h2>
+<p>First enter your mail. This way we can notify you on your mail when we respond to your query! Enter the subject about which you are having a query. For example, if you have a query regarding fee structure, you can put "Confusion regarding Fees" as the subject. This makes us easier to do our job but you can also leave it blank if you cant think of one. In the description area fill in the details regarding your query. Keep it short as far as possible and we will reach out to you as soon as we can!</p>
+</div><!--End jumbotron-->
+</div><!--end jumbotron column-->
+</div> <!-- End Row -->
+</div><!-- End Container -->
+</body>
+</html>
